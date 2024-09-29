@@ -1,5 +1,5 @@
-ADMIN_ID = 0
-BOT_TOKEN = ""
+API_HASH = ""
+API_ID = 1
 CHAT_ALIAS = "@YOUR_CHAT_NICKNAME"
 
 DB_CONNECTION_TIMEOUT = 610
@@ -10,8 +10,7 @@ DB_NAME = "database_name"
 DB_TABLE_NAME = "table_name"
 DB_RECONNECT_CONNECTION_AFTER_QUERY = True
 
-ENV = "PROD"
-TMPL_LINK = "https url to entity page"
+TMPL_LINK = "https://example.com/path/view"
 TMPL_ENTITY_ID = 'id'
 TMPL_ENTITY_NAME = 'name'
 

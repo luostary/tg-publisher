@@ -27,10 +27,24 @@ class BotDB:
         date_to = date_to.strftime("%Y-%m-%d %H:00")
         print(date_from, date_to)
         sql = '''
-            SELECT * 
-            FROM `{table:s}` 
+            SELECT 
+                t.id,
+                t.`name`,
+                p.name_full as project_name,
+                p.address_object_name_capital_construction as project_address,
+                IF (sc.kind_procedure_id = 1, 'Тендер', IF (sc.kind_procedure_id = 2, 'Аукцион', IF (sc.kind_procedure_id = 3, 'Запрос цены', ''))) as tender_type,
+                t.contact_contract as contact,
+                t.description_full as description,
+                t.is_active,
+                DATE_FORMAT(t.dt_end, '%d.%m.%Y') as until_date
+            FROM
+                `{table:s}` t
+                    LEFT JOIN
+                tender_scenario sc ON t.tender_scenario_id = sc.id
+                    LEFT JOIN
+                dict_project p ON p.id = t.project_id
             WHERE 1 
-                AND is_active = 1
+                AND t.is_active = 1
                 AND dt_start >= '{date_from:s}'
                 AND dt_start < '{date_to:s}'
             ORDER BY dt_start ASC

@@ -28,8 +28,11 @@ class BotDB:
         print(date_from, date_to)
         sql = '''
             SELECT 
+                prof.public_email,
+                prof.public_phone,
+                prof.`name` user_name,
                 t.id,
-                t.`name`,
+                t.`name` tender_name,
                 p.name_full as project_name,
                 p.address_object_name_capital_construction as project_address,
                 IF (sc.kind_procedure_id = 1, 'Тендер', IF (sc.kind_procedure_id = 2, 'Аукцион', IF (sc.kind_procedure_id = 3, 'Запрос цены', ''))) as tender_type,
@@ -43,8 +46,15 @@ class BotDB:
                 tender_scenario sc ON t.tender_scenario_id = sc.id
                     LEFT JOIN
                 dict_project p ON p.id = t.project_id
+                    LEFT JOIN
+                user u ON u.id = t.responsible_user_id_first
+                    LEFT JOIN
+                profile prof ON prof.user_id = u.id
+                    LEFT JOIN
+                status st ON st.id = t.current_status_id
             WHERE 1 
                 AND t.is_active = 1
+                AND st.action_status_id = 2
                 AND dt_start >= '{date_from:s}'
                 AND dt_start < '{date_to:s}'
             ORDER BY dt_start ASC

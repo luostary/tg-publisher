@@ -10,9 +10,7 @@ DB_NAME = "database_name"
 DB_TABLE_NAME = "table_name"
 DB_RECONNECT_CONNECTION_AFTER_QUERY = True
 
-TMPL_LINK = "https://example.com/path/view"
-TMPL_ENTITY_ID = 'id'
-TMPL_ENTITY_NAME = 'name'
+TMPL_LINK = "https://example.com/path/view?id="
 
 from os.path import exists
 

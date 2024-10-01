@@ -50,14 +50,16 @@ def action_publish():
         caption = caption.format(
             tender_name=str(link),
             tender_type=str(entity['tender_type']),
-            contact_name=str(entity['contact']),
+            user_name=str(entity['user_name']),
             project_name=project,
             address=address,
             tender_description=str(entity['description']),
-            until_date=str(entity['until_date'])
+            until_date=str(entity['until_date']),
+            email=str(entity['public_email']),
+            phone=str(entity['public_phone']),
         )
-        photo2 = 'cat100500.jpeg'
-        client.send_photo(chat_id=CHAT_ALIAS, photo=photo2, caption=caption)
+        photo = 'https://storage.yandexcloud.net/glorax-dev/c/p/p/di/56f1d27855aff51c0307a64917b737d408fb0f6b/9e296e03c7d40b64d4bace7bc8bd8dc9.jpg'
+        client.send_photo(chat_id=CHAT_ALIAS, photo=photo, caption=caption)
         time.sleep(5)
     pass
 
@@ -68,6 +70,6 @@ def after_action():
 
 def make_link(entity):
     if TMPL_LINK == "":
-        return ''
-    url = TMPL_LINK + '?' + TMPL_ENTITY_ID + '=' + str(entity[TMPL_ENTITY_ID])
-    return '<a href="' + url + '">' + str(entity[TMPL_ENTITY_NAME]) + '</a>'
+        return str(entity['tender_name'])
+    url = TMPL_LINK + str(entity['id'])
+    return '<a href="' + url + '">' + str(entity['tender_name']) + '</a>'

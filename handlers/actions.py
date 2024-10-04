@@ -1,6 +1,6 @@
 from aiogram.utils.exceptions import *
 from pyrogram import Client
-from setuptools.package_index import entity_sub
+from pyrogram.enums import ChatType
 
 from config import *
 from db import BotDB
@@ -23,12 +23,14 @@ def main():
 def before_action():
     try:
         member = client.get_chat_member(CHAT_ALIAS, 'me')
+        chat = client.get_chat(CHAT_ALIAS)
         if str(member.status) != 'ChatMemberStatus.ADMINISTRATOR':
             print('Member is not channel administrator')
             return False
-        if not member.privileges.can_post_messages:
-            print('Administrator has not permission can_post_messages')
-            return False
+        if chat.type == ChatType.CHANNEL:
+            if not member.privileges.can_post_messages:
+                print('Administrator has not permission can_post_messages')
+                return False
         return True
     except BaseException as e:
         print(str(e))

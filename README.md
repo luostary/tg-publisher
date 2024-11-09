@@ -42,5 +42,5 @@ git clone http://gitlab.alfa2b.ru/TENDER/tg-publisher.git ./
 -
 Копируем: ```config-example.py``` в файл ```config.py```
 ~~~
-cp config-example.py config.py
+cp config-example.py params.py
 ~~~

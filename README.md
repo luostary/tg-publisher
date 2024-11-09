@@ -40,7 +40,7 @@ git clone http://gitlab.alfa2b.ru/TENDER/tg-publisher.git ./
 
 Настраиваем локальный конфиг в корне
 -
-Копируем: ```config-example.py``` в файл ```config.py```
+Копируем: ```config-example.py``` в файл ```params.py```
 ~~~
 cp config-example.py params.py
 ~~~
